@@ -1,0 +1,36 @@
+ 
+version: "2"
+sql:
+- schema: "/db/migrations/"
+  queries: "/db/query/"
+  engine: "postgresql"
+  strict_order_by: false
+  gen:
+    go:
+      package: "db"
+      out: "/db/sqlc/"
+      sql_package: "pgx/v5"
+
+      emit_json_tags: true
+      emit_interface: true
+      emit_empty_slices: false
+
+      overrides:
+        - db_type: "timestamptz"
+          go_type: "time.Time"
+        - db_type: "bool"
+          go_type: 
+            type: "Bool"
+            import: "github.com/jackc/pgx/v5/pgtype"
+        - db_type: "int64"
+          go_type: 
+            type: "Int8"
+            import: "github.com/jackc/pgx/v5/pgtype"
+        - db_type: "float64"
+          go_type: 
+            type: "Float8"
+            import: "github.com/jackc/pgx/v5/pgtype"
+        - db_type: "int"
+          go_type: 
+            type: "Int8"
+            import: "github.com/jackc/pgx/v5/pgtype"
